@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AnnuityCalculator implements ICalculator {
-    private double principal; //сумма долга
-    private double annualInterestRate; //ежегодная процентная ставка
+    private double principal; 
+    private double annualInterestRate;
     private int years;
-    private List<Payment> payments; //график платежей
+    private List<Payment> payments; 
 
     @Override
     public void setPrincipal(double principal) {
@@ -27,7 +27,7 @@ public class AnnuityCalculator implements ICalculator {
     @Override
     public void calculatePayments() {
         double monthlyRate = annualInterestRate / 12 / 100;
-        double monthlyPayment = principal * (monthlyRate * Math.pow(1 + monthlyRate, years * 12)) / (Math.pow(1 + monthlyRate, years * 12) - 1); //Math.pow(n, m) - возводит в степень m число n
+        double monthlyPayment = principal * (monthlyRate * Math.pow(1 + monthlyRate, years * 12)) / (Math.pow(1 + monthlyRate, years * 12) - 1);
         payments = new ArrayList<>();
 
         for (int month = 1; month <= years * 12; month++) {
@@ -41,7 +41,7 @@ public class AnnuityCalculator implements ICalculator {
 
     @Override
     public double getTotalPayment() { //реализация получение общих платежей
-        return payments.stream().mapToDouble(Payment::getTotalPayment).sum(); //получение из метода getTotalPayment платежи и суммирование и получим сколько мы заплатили исходя из суммы основного долга
+        return payments.stream().mapToDouble(Payment::getTotalPayment).sum(); 
     }
 
     @Override
@@ -50,7 +50,7 @@ public class AnnuityCalculator implements ICalculator {
     }
 
     @Override
-    public List<Payment> getPaymentsSchedule() { //плучить весь список платежей, который мы рассчитали
+    public List<Payment> getPaymentsSchedule() { //получить весь список платежей, который мы рассчитали
         return payments;
     }
 }
