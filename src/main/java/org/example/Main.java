@@ -6,11 +6,11 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Введите сумму долга:");
-        double principal = chekDouble(scanner);
+        double principal = checkDouble(scanner);
 
         //Добавляем ввод первоначального взноса
         System.out.println("Введите первоначальный взнос");
-        double downPayment = chekDouble(scanner);
+        double downPayment = checkDouble(scanner);
 
         //Проверка на правильность введения значений первоначального взноса и суммы кредита
         if (downPayment > principal) {
@@ -18,16 +18,16 @@ public class Main {
         }
 
         System.out.println("Введите срок кредита в годах:");
-        int years = chekInt(scanner);
+        int years = checkInt(scanner);
 
         System.out.println("Введите процентную ставку:");
-        double annualInterestRate = chekDouble(scanner);
+        double annualInterestRate = checkDouble(scanner);
 
         System.out.println("Выберите вид платежа (1 - аннуитетный, 2 - дифференцированный):");
         int paymentType;
 
         while (true) {
-            paymentType = chekInt(scanner);
+            paymentType = checkInt(scanner);
             if (paymentType == 1 || paymentType == 2) {
                 break;
             }
@@ -41,6 +41,7 @@ public class Main {
             if (downPayment > 0) {
                 AnnuityCalculatorWithDiscount calc = new AnnuityCalculatorWithDiscount();
                 calc.setDiscount(downPayment);
+                calc.setPrincipal(principal);
                 calculator = calc;
             } else {
                 calculator = new AnnuityCalculator();
@@ -53,12 +54,18 @@ public class Main {
         calculator.setPrincipal(principal);
         calculator.setAnnualInterestRate(annualInterestRate);
         calculator.setYears(years);
-
-        calculator.calculatePayments(); //расчет платежей
+        //Расчет платежей
+        calculator.calculatePayments();
 
         printSchedule(calculator, principal, downPayment);
     }
 
+    /**
+     * Вывод общей информации о кредите и график платежей
+     * @param calculator - объект калькулятора с рассчитанными платежами
+     * @param principal - сумма долга
+     * @param downPayment - первоначальный взнос
+     */
     private static void printSchedule(ICalculator calculator, double principal, double downPayment) {
         System.out.println("График платежей:");
         for (Payment payment : calculator.getPaymentsSchedule()) {
@@ -74,7 +81,13 @@ public class Main {
         System.out.printf("Переплата: %.2f%n", overpayment);
     }
 
-    private static double chekDouble (Scanner scanner) {
+
+    /**
+     * Метод для проверки корректности ввода числа типа double.
+     * @param scanner - объект Scanner для чтения данных из консоли
+     * @return value - введенное пользователем число
+     */
+    private static double checkDouble (Scanner scanner) {
         double value;
         while (true) {
             if (scanner.hasNextDouble()) {
@@ -90,7 +103,12 @@ public class Main {
         return value;
     }
 
-    private static int chekInt(Scanner scanner) {
+    /**
+     * Метод для проверки корректности ввода числа типа int.
+     * @param scanner - объект Scanner для чтения данных из консоли
+     * @return - введенное пользователем число
+     */
+    private static int checkInt(Scanner scanner) {
         int value;
         while (true) {
             if (scanner.hasNextInt()) {
