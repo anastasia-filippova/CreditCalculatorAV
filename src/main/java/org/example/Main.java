@@ -12,6 +12,11 @@ public class Main {
         System.out.println("Введите первоначальный взнос");
         double downPayment = chekDouble(scanner);
 
+        //Проверка на правильность введения значений первоначального взноса и суммы кредита
+        if (downPayment > principal) {
+            System.out.println("Ошибка! Первоначальный взнос не может превышать сумму кредита.");
+        }
+
         System.out.println("Введите срок кредита в годах:");
         int years = chekInt(scanner);
 

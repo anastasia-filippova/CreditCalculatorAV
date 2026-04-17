@@ -4,10 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AnnuityCalculator implements ICalculator {
+
     private double principal; 
     private double annualInterestRate;
     private int years;
-    private List<Payment> payments; 
+    private List<Payment> payments;
 
     @Override
     public void setPrincipal(double principal) {
@@ -40,17 +41,17 @@ public class AnnuityCalculator implements ICalculator {
     }
 
     @Override
-    public double getTotalPayment() { //реализация получение общих платежей
-        return payments.stream().mapToDouble(Payment::getTotalPayment).sum(); 
+    public double getTotalPayment() { //реализация получения общих платежей
+        return payments.stream().mapToDouble(Payment::getTotalPayment).sum();
     }
 
     @Override
-    public double getTotalInterest() { //реализация получение процентов
+    public double getTotalInterest() { //реализация получения процентов
         return payments.stream().mapToDouble(Payment::getInterestPayment).sum();
     }
 
     @Override
     public List<Payment> getPaymentsSchedule() { //получить весь список платежей, который мы рассчитали
-        return payments;
+                return payments;
     }
 }
